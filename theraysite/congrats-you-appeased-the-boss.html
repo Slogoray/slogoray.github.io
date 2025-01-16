@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victory Over La Passion Fruit!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('metal-room.jpg') no-repeat center center;
+            background-size: cover;
+            overflow: hidden;
+
+        }
+        .game-container {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            background-color: rgba(231, 76, 60, 0.6);
+            width: 960px;
+            height: 540px;
+            max-width: 100%;
+            max-height: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+        .instruction-section {
+            margin-bottom: 20px;
+        }
+        .victory-message {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .typewriter-text {
+            font-size: 18px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+        .continue-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            background-color: #ecf0f1;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: background-color 0.3s;
+        }
+        .continue-button:hover {
+            background-color: #586874;
+        }
+        .character-image {
+            margin: 20px 0;
+        }
+        h1, p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="instruction-section">
+            <h1>Victory Over La Passion Fruit!</h1>
+            <p>Congratulations! You've melted the heart of the mighty La Passion Fruit with your astounding musical talent. Let him explain himself...</p>
+        </div>
+
+        <div class="victory-message">
+            <div class="character-image">
+                <img src="quenched-la-passion.jpeg" alt="La Passion Fruit" style="width:150px"
+            </div>
+            <p class="typewriter-text" id="typewriterText"></p>
+            <button id="nextTextButton" style="display: none;" class="continue-button">Continue</button>
+        </div>
+
+        <a class="continue-button" href="well-done-gang.html" id="finishButton" style="display: none;">Return to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const typewriterText = document.getElementById('typewriterText');
+            const nextTextButton = document.getElementById('nextTextButton');
+            const finishButton = document.getElementById('finishButton');
+
+            const messages = [
+                "La Passion Fruit: Bravo! Bravo! Your song was truly magnifique! I was prepared to crush Ngee Ann Polytechnic into a fruit smoothie, but this melody? It stopped me in my tracks.",
+                "La Passion Fruit: I cannot, in good conscience, destroy a place that produces such brilliance. Imagine depriving the world of more creators like you. What a tragedy that would be!",
+                "La Passion Fruit: Go forth, hero! Tell the tale of how the power of gnerative AI surmount even the the greatest challenges, even charming...me, La Passions!"
+            ];
+
+            let messageIndex = 0;
+
+            function typeWriterEffect(text, callback) {
+                let i = 0;
+                typewriterText.innerHTML = '';
+                const interval = setInterval(() => {
+                    if (i < text.length) {
+                        typewriterText.innerHTML += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(interval);
+                        if (callback) callback();
+                    }
+                }, 50);
+            }
+
+            function displayNextMessage() {
+                if (messageIndex < messages.length) {
+                    typeWriterEffect(messages[messageIndex], () => {
+                        nextTextButton.style.display = 'block';
+                    });
+                    messageIndex++;
+                } else {
+                    nextTextButton.style.display = 'none';
+                    finishButton.style.display = 'block';
+                }
+            }
+
+            nextTextButton.addEventListener('click', () => {
+                nextTextButton.style.display = 'none';
+                displayNextMessage();
+            });
+
+            // Start the first message
+            displayNextMessage();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spy Game - AI Interaction</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centers horizontally */
+            align-items: center; /* Centers vertically */
+            height: 100vh; /* Full height of the viewport */
+            background: url('metal-room.jpg') no-repeat center center;
+            background-size: cover;
+            overflow: hidden; /* Prevents overflow from the body */
+        }
+
+        .game-container {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            background-color: rgba(52, 152, 219, 0.6);
+            width: 960px;
+            height: 540px;
+            max-width: 100%;
+            max-height: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+            overflow-y: auto; 
+        }
+
+        /* Sections */
+        .enemy-section {
+            margin-bottom: 20px;
+        }
+
+        .drag-drop-section {
+            margin-top: 20px;
+            border: 2px dashed #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            min-height: 150px; /* Ensure the drop zone has a minimum height */
+        }
+
+        .generator-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            background-color: #ecf0f1;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: background-color 0.3s;
+        }
+
+        .generator-link a:hover {
+            background-color: #bdc3c7;
+        }
+
+        .generator-link img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Fight Button */
+        .fight-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #ecf0f1;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 20;
+        }
+
+        .fight-button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Animation Styles */
+        #fightAnimation {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .win-popup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2ecc71;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 30;
+        }
+
+        .continue-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #ecf0f1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .continue-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Fade out effect for text */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Drop zone styles */
+        .drag-drop-section img {
+    width: 100%;       
+    height: 100%;     
+    display: flex;      
+    justify-content: center; 
+    align-items: center;   
+    position: relative; 
+    overflow: hidden;  
+}
+
+        .enemy-section img {
+            width: 100px;
+            height: auto;
+            transition: opacity 1s;
+
+.drag-drop-section img {
+    object-fit: cover;
+    max-width: 100%;  
+    max-height: 100%;   
+}
+
+    </style>
+</head>
+<body>
+    <div class="game-container">
+
+        <div class="enemy-section">
+            <h1>Enemy Encounter!</h1>
+            <h3>The enemy: SHOOTY MANGO is blocking your path! <br>Use S.S.S.P.A.G.G. to make something that can help you defeat him!</br></h3>
+            <img id="enemyImage" src="shooty-mango.jpeg" alt="Shooty Mango">
+        </div>
+
+        <div class="generator-link">
+            <a href="https://gemini.google.com/app" target="_blank">
+                <img src="polychrome-button-texture.webp" alt="Generator Icon">
+                Super Secret Super Powerful All Generating Generator
+                <img src="polychrome-button-texture.webp" alt="Generator Icon">
+            </a>
+        </div>
+
+        <div class="drag-drop-section" id="dragDropSection">
+            <p>Drag and drop your generated image here:</p>
+            <img id="generatedImage" src="" alt="Generated Image">
+        </div>
+
+        <div id="fightAnimation">
+            <img src="cartoon-cloud-fight.webp" alt="Fight Animation">
+        </div>
+
+        <div class="win-popup" id="winPopup">
+            Win!
+            <br><button class="continue-button" id="continueButton">Move on</button></br>
+        </div>
+
+        <button class="fight-button" id="fightButton">Fight!</button>
+
+    </div>
+
+    <script>
+        const dragDropSection = document.getElementById('dragDropSection');
+        const generatedImage = document.getElementById('generatedImage');
+        const enemyImage = document.getElementById('enemyImage');
+        const fightButton = document.getElementById('fightButton');
+        const fightAnimation = document.getElementById('fightAnimation');
+        const winPopup = document.getElementById('winPopup');
+        const continueButton = document.getElementById('continueButton');
+        const gameContainer = document.querySelector('.game-container');
+
+        // Drag and Drop functionality
+        dragDropSection.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dragDropSection.style.backgroundColor = '#27ae60';
+        });
+
+        dragDropSection.addEventListener('dragleave', () => {
+            dragDropSection.style.backgroundColor = '';
+        });
+
+        dragDropSection.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dragDropSection.style.backgroundColor = '';
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const fileReader = new FileReader();
+                fileReader.onload = (e) => {
+                    generatedImage.src = e.target.result;
+                    generatedImage.style.display = 'block';
+                };
+                fileReader.readAsDataURL(files[0]);
+            }
+        });
+
+        // Fight Button functionality
+        fightButton.addEventListener('click', () => {
+            if (generatedImage.style.display === 'block') {
+                // Fade out text and images
+                gameContainer.querySelectorAll('h1, p, .generator-link').forEach(el => el.classList.add('fade-out'));
+                enemyImage.style.opacity = '0';
+                generatedImage.style.opacity = '0';
+
+                // Show fight animation
+                setTimeout(() => {
+                    fightAnimation.style.display = 'block';
+                }, 1000);
+
+                setTimeout(() => {
+                    fightAnimation.style.display = 'none';
+                    winPopup.style.display = 'block'; // Show Win popup
+                }, 3000); // Show Win popup after 3 seconds
+            } else {
+                alert('Please drop an image into the drag-and-drop section first!');
+            }
+        });
+ 
+        // Continue Button functionality
+        continueButton.addEventListener('click', () => {
+            window.location.href = "congrats-defeat-mango.html"
+        });
+    </script>
+</body>
+</html>

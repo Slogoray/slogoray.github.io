@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spy Mission Briefing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            background: url('grandpa-green.webp');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #fff;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        #startButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #startButton:hover {
+            background-color: #2980b9;
+        }
+
+        .typewriter {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        #clickPrompt {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #bbb;
+            animation: flash 1s infinite;
+        }
+
+        @keyframes flash {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="briefing" class="typewriter"></div>
+        <div id="clickPrompt">Click anywhere to continue...</div>
+        <button id="startButton" onclick="location.href='solving-passcode.html'">Start Mission</button>
+    </div>
+
+    <script>
+        const briefingText = [
+            "You’re Agent Alpha, an elite spy tasked with infiltrating GEN-Corp, a clandestine organisation hell-bent on destroying your workplace: IMDA",
+            "Your organisation, GEN-Z, has developed the \"Super Secret, Super Powerful, All Generating Generator\" (SSSPAGG).",
+            "This advanced AI software is said to hold the key to solving the world’s greatest challenges.",
+            "I am Sage Codex, your guy in the chair for today.",
+            "According to the boss, GEN-Z has upgraded your SSSPAGG with a secret technology: Generative AI!",
+            "Your mission: Navigate the facility, field test the upgraded weapon SSSPAGG, and infiltrate the facility. Only then can you save your ex-school!"
+        ];
+
+        const briefingContainer = document.getElementById('briefing');
+        const startButton = document.getElementById('startButton');
+        const clickPrompt = document.getElementById('clickPrompt');
+        let currentSentenceIndex = 0;
+        let isTyping = false;
+
+        function typeSentence(sentence, callback) {
+            let charIndex = 0;
+            briefingContainer.textContent = "";
+            isTyping = true;
+
+            const typingInterval = setInterval(() => {
+                briefingContainer.textContent += sentence[charIndex];
+                charIndex++;
+
+                if (charIndex === sentence.length) {
+                    clearInterval(typingInterval);
+                    isTyping = false;
+                    if (callback) callback();
+                }
+            }, 50);
+        }
+
+        function showNextSentence() {
+            if (isTyping || currentSentenceIndex >= briefingText.length) return;
+
+            // Hide click prompt once the user interacts
+            clickPrompt.style.display = 'none';
+
+            typeSentence(briefingText[currentSentenceIndex], () => {
+                currentSentenceIndex++;
+                if (currentSentenceIndex === briefingText.length) {
+                    startButton.style.display = 'block';
+                }
+            });
+        }
+
+        // Start showing sentences on body click
+        document.body.addEventListener('click', showNextSentence);
+    </script>
+</body>
+</html>

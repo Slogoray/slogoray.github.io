@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations - Stage 3 Complete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: url('grandpa-green.webp') center center/cover;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            max-height: 540px; /* Ensures the container doesn’t stretch too far */
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto; /* Enables vertical scrolling */
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px #3498db;
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .learnings {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 220px; /* Limit height for content */
+            overflow-y: auto; /* Adds scrolling for long content */
+        }
+
+        button {
+            padding: 10px 25px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Congratulations, Agent Alpha!</h1>
+        <p class="message">You’ve defeated Stronger Shooty Mango and completed Stage 3!</p>
+
+        <div class="learnings">
+            <strong>What You've Learned:</strong><br>
+            By improving your previous prompt, you’ve demonstrated how Generative AI can be harnessed to create more powerful and explosive solutions! Here’s what this victory teaches you:
+
+            <ul>
+                <li><strong>Prompt Refinement:</strong> Enhancing your initial ideas can lead to more precise and impactful results, whether it's generating images or crafting text.</li>
+                <li><strong>Creative Exploration:</strong> Using descriptive and dynamic terms like "more powerful" or "more explosive" can push Generative AI to produce innovative outcomes.</li>
+                <li><strong>Limitations of AI:</strong> Be aware of its quirks. AI-generated images might sometimes include oddities like extra fingers or blurry artifacts. Always review outputs for quality.</li>
+                <li><strong>Iterative Learning:</strong> Each attempt refines your understanding of how to direct the AI effectively, turning each failure into a stepping stone.</li>
+            </ul>
+
+            Remember: Generative AI is a powerful ally, but your attention to detail and critical thinking are what truly make it shine.
+        </div>
+
+        <button id="nextButton">Proceed to Stage 4</button>
+    </div>
+
+    <script>
+        const nextButton = document.getElementById("nextButton");
+
+        nextButton.addEventListener("click", () => {
+            window.location.href = "trials.html"; 
+        });
+    </script>
+</body>
+</html>

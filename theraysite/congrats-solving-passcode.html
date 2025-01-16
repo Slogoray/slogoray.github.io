@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEN-Corp: Congratulations - Stage 1 Complete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: url('door-open.gif');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .learnings {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            white-space: pre-wrap;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #f1c40f;
+            height: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p class="message">You’ve made it past the first stage, Agent Alpha!</p>
+
+        <div class="learnings">
+            <strong>What You've Learned:</strong><br>
+            You’ve successfully solved a complex problem using Generative AI tools like GPT and Gemini. These tools allow you to rapidly generate insights, analyze equations, and automate problem-solving. This is a key skill for navigating the future of technology.
+            <br><br>
+            But remember: While Generative AI provides powerful solutions, it’s always wise to <strong>cross-check</strong> the answers yourself to ensure they are accurate. Trust, but verify!
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <button id="nextButton">Proceed to Stage 2</button>
+    </div>
+
+    <script>
+        const nextButton = document.getElementById("nextButton");
+        const feedback = document.getElementById("feedback");
+
+        nextButton.addEventListener("click", () => {
+            feedback.textContent = "Get ready for the next challenge... Agent Alpha!";
+            feedback.style.color = "#2ecc71"; // Green for success
+
+            // Redirect to the next challenge (adjust as needed)
+            setTimeout(() => {
+                window.location.href = "enemy-spotted-i-think.html";
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

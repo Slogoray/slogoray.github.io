@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Final Showdown - Introducing La Passion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('scary.gif') no-repeat center center/cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            width: 960px;
+            height: 540px;
+            max-height: 540px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px #e74c3c;
+            color: #e74c3c;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .introduction {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        button {
+            padding: 10px 25px;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        .typed-text {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Final Showdown Begins</h1>
+        <p class="message">Agent Alpha, you've made it this far, but the toughest battle is still ahead. Meet your final adversary:</p>
+
+        <div class="introduction">
+            <strong>La Passion, the Soulless Singer:</strong><br>
+            <span id="typedText" class="typed-text"></span>
+        </div>
+
+        <button id="nextButton">Enter Stage 4: The Final Battle</button>
+    </div>
+
+    <script>
+        // Typewriter Effect
+        const typedTextElement = document.getElementById("typedText");
+        const text = `Known for their haunting voice that can shatter the spirit of even the strongest warriors, La Passion is no ordinary foe. Their soul is bound to a melody that has driven countless agents to madness, and now, it's your turn to face this music.
+
+Can you endure the twisted rhythm of their song and defeat them? Prepare yourself, because La Passion is about to make their grand entrance.`;
+
+        let i = 0;
+        const speed = 50; // Speed of typing effect
+        const button = document.getElementById("nextButton");
+
+        function typeWriter() {
+            if (i < text.length) {
+                typedTextElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                // Show the button after typing is complete
+                button.style.display = "inline-block";
+            }
+        }
+
+        // Start the typing effect
+        typeWriter();
+
+        // Button to proceed to Stage 4
+        button.addEventListener("click", () => {
+            window.location.href = "la-passion-the-soulless-singer.html"; // Link 
+        });
+    </script>
+</body>
+</html>
